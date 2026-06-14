@@ -26,3 +26,33 @@ CREATE TABLE Matches (
     CONSTRAINT chk_matches_price   CHECK       (base_ticket_price >= 0),
     CONSTRAINT chk_matches_status  CHECK       (match_status IN ('Available', 'Selling Fast', 'Sold Out', 'Postponed'))
 );
+
+CREATE TABLE Bookings (
+    booking_id      INT             NOT NULL,
+    user_id         INT             NOT NULL,
+    match_id        INT             NOT NULL,
+    seat_number     VARCHAR(10),
+    payment_status  VARCHAR(20),
+    total_cost      DECIMAL(10, 2)  NOT NULL,
+
+    CONSTRAINT pk_bookings             PRIMARY KEY (booking_id),
+    CONSTRAINT fk_bookings_user        FOREIGN KEY (user_id)  REFERENCES Users(user_id),
+    CONSTRAINT fk_bookings_match       FOREIGN KEY (match_id) REFERENCES Matches(match_id),
+    CONSTRAINT chk_bookings_total_cost CHECK       (total_cost >= 0),
+    CONSTRAINT chk_bookings_payment    CHECK       (payment_status IN ('Pending', 'Confirmed', 'Cancelled', 'Refunded'))
+);
+
+CREATE TABLE Bookings (
+    booking_id      INT             NOT NULL,
+    user_id         INT             NOT NULL,
+    match_id        INT             NOT NULL,
+    seat_number     VARCHAR(10),
+    payment_status  VARCHAR(20),
+    total_cost      DECIMAL(10, 2)  NOT NULL,
+
+    CONSTRAINT pk_bookings             PRIMARY KEY (booking_id),
+    CONSTRAINT fk_bookings_user        FOREIGN KEY (user_id)  REFERENCES Users(user_id),
+    CONSTRAINT fk_bookings_match       FOREIGN KEY (match_id) REFERENCES Matches(match_id),
+    CONSTRAINT chk_bookings_total_cost CHECK       (total_cost >= 0),
+    CONSTRAINT chk_bookings_payment    CHECK       (payment_status IN ('Pending', 'Confirmed', 'Cancelled', 'Refunded'))
+);
